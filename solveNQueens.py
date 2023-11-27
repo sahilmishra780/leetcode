@@ -3,45 +3,27 @@ class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         board = [["." for i in range(n)] for i in range(n)]
         ans = []
-        vert = set()
-        diag = set()
-        def mark(R,C):
-            i = 1
-            vertsAdded = []
-            diagsAdded = []
-            for r in range(R+1, n):
-                if (r, C) not in vert:
-                    vert.add((r, C))
-                    vertsAdded.append((r,C))
-                vert.add((r, C))
-                if C - i >= 0 and (r, C - i) not in diag:
-                    diag.add((r, C - i))
-                    diagsAdded.append((r, C - i))
-                if C + i < n and (r, C + i) not in diag:
-                    diag.add((r, C + i))
-                    diagsAdded.append((r, C + i))
-                i += 1
-            return (vertsAdded, diagsAdded)
-        def unmark(vertsAdded, diagsAdded):
-            for t in vertsAdded:
-                vert.remove(t)
-            for t in diagsAdded:
-                diag.remove(t)
-            
+        cols = set()
+        sumDiag = set() # down left diagonal, Here r + c remains constant
+        diffDiag = set() # down right diagonal, Here r - c remains constant
+
         def bt(r):
             if r == n:
                 ans.append(["".join(brd) for brd in board])
                 return
             for c in range(n):
-                t = (r,c)
-                if t in vert or t in diag:
+                if c in cols or (r + c) in sumDiag or (r - c) in diffDiag:
                     continue
                 board[r][c] = "Q"
-                (vertsAdded, diagsAdded) = mark(r, c)
+                cols.add(c)
+                sumDiag.add(r+c)
+                diffDiag.add(r-c)
                 
                 bt(r+1)
                 
-                unmark(vertsAdded, diagsAdded)
+                cols.remove(c)
+                sumDiag.remove(r+c)
+                diffDiag.remove(r-c)
                 board[r][c] = "."
 
         bt(0)
