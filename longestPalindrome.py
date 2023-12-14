@@ -1,5 +1,5 @@
 class Solution:
-    def longestPalindrome(self, s: str) -> str:
+    def longestPalindromeSlidingWindow(self, s: str) -> str:
         maxLen, maxL, maxR = 0, None, None
 
         for i in range(len(s)):
@@ -18,6 +18,42 @@ class Solution:
                     l -= 1
         
         return s[maxL:maxR+1]
+    
+    def longestPalindromeDP(self, s: str) -> str:
+        n = len(s)
 
-print(Solution().longestPalindrome("babad"))
-print(Solution().longestPalindrome("cbbd"))
+        # dp[i][j] = True indicates that the string formed by s[i:j+1] (i.e. from s[i] to s[j] (inclusive))
+        # is a palindrome
+        dp = [[False] * n for _ in range(n)]
+
+        # single characters are palindromes
+        for i in range(n):
+            dp[i][i] = True
+
+        longest_palindrome_start, longest_palindrome_len = 0, 1
+
+        for right in range(0, n): # right can be 0, 1, 2, ..., n - 1
+            for left in range(right - 1, -1, -1): # left can be right - 1, right - 2, ..., 0
+
+                if s[left] == s[right]:
+                    # chars pointed by left and right match. 
+                    
+                    # Is the string formed from s[left+1] .. s[right - 1]?
+                    # Yes if
+                    # 1. right = left + 1 OR (no string formed therefore a palindrom)
+                    # 2. dp[left + 1][right - 1] is True (we've previously determined the enclosed string to be a palindrom)
+                    if right == left + 1 or dp[left + 1][right - 1]:
+                        dp[left][right] = True
+                        current_palindrome_len = right - left + 1
+                        if current_palindrome_len > longest_palindrome_len:
+                            longest_palindrome_start = left
+                            longest_palindrome_len = current_palindrome_len
+        return s[longest_palindrome_start:longest_palindrome_start + longest_palindrome_len]
+
+print(Solution().longestPalindromeSlidingWindow("babad"))
+print(Solution().longestPalindromeSlidingWindow("cbbd"))
+
+print(Solution().longestPalindromeDP("babad"))
+print(Solution().longestPalindromeDP("cbbd"))
+
+
