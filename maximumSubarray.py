@@ -7,8 +7,10 @@ class Solution:
         for val in nums:
             currSum += val
             maxSum = max(maxSum, currSum)
-            currSum = max(0, currSum)
+            if currSum < 0:
+                currSum = 0
         return maxSum
+    
 soln = Solution()
 assert soln.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]) == 6
 assert soln.maxSubArray([1]) == 1
