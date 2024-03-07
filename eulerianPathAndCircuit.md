@@ -11,6 +11,7 @@ For undirected graphs node degree is the number of edges attached to the node. F
 | ---------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Undirected Graph | Every vertex has an even degree               | Either every vertex has even degree or exactly two vertices have odd degree                                                                                          |
 | Directed Graph   | Every vertex has equal indegree and outdegree | At most one vertex has *(outdegree) - (indegree) = 1* and at most one vertex has *(indegree) - (outdegree) = 1* and all other vertices have equal in and out degrees |
+
 An additional requirement when finding paths/circuits is that ***all vertices with nonzero degree*** need to belong to a ***single connected component***.
 
 Also note that a singleton node, 0 node degree or 0 indegree and outdegree, does not impact whether there is an Eulerian cycle/path
