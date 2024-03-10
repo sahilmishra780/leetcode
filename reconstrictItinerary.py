@@ -60,10 +60,37 @@ class Solution:
         dfs("JFK")
         return res
     
+    """
+    See notes in eulerianPathAndCircuit.md
+    """
+    def findItineraryEulerianPath(self, tickets: List[List[str]]) -> List[str]:
+        tickets.sort(reverse=True)
+        
+
+        adj = defaultdict(list)    
+        for src, dst in tickets:
+            adj[src].append(dst)
+
+        ans = []
+        def dfs(at):
+            while adj[at]:
+                dst = adj[at].pop()
+                dfs(dst)
+            ans.append(at)
+        
+        dfs("JFK")
+        return ans[::-1]
+
 soln = Solution()
 assert soln.findItineraryBacktracking(
     [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
     ) == ["JFK","MUC","LHR","SFO","SJC"]
 assert soln.findItineraryBacktracking(
+    [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+    ) == ["JFK","ATL","JFK","SFO","ATL","SFO"]
+assert soln.findItineraryEulerianPath(
+    [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
+    ) == ["JFK","MUC","LHR","SFO","SJC"]
+assert soln.findItineraryEulerianPath(
     [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
     ) == ["JFK","ATL","JFK","SFO","ATL","SFO"]
