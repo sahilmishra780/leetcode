@@ -388,7 +388,7 @@ Let's consider search space. Obviously the lower bound should be 1, and the uppe
 
 Next let's consider how to implement `enough` function. It can be observed that every row in the Multiplication Table is just multiples of its index. For example, all numbers in 3rd row `[3,6,9,12,15...]` are multiples of 3. Therefore, we can just go row by row to count the total number of entries less than or equal to input `num`. Following is the complete solution.
 
-```
+```python
 class Solution:
     def findKthNumber(self, rows: int, cols: int, k: int) -> int:
         def feasible(num):
@@ -440,7 +440,7 @@ Following are all the pairs. The 1st smallest distance pair is (1,1), and its di
 
 Very similar to LC 668 above, both are about finding Kth-Smallest. Just like LC 668, We can design an `enough` function, given an input `distance`, determine whether there're at least k pairs whose distances are less than or equal to `distance`. We can sort the input array and use two pointers (fast pointer and slow pointer, pointed at a pair) to scan it. Both pointers go from leftmost end. If the current pair pointed at has a distance less than or equal to `distance`, all pairs between these pointers are valid (since the array is already sorted), we move forward the fast pointer. Otherwise, we move forward the slow pointer. By the time both pointers reach the rightmost end, we finish our scan and see if total counts exceed k. Obviously, our search space should be `[0, max(nums) - min(nums)]`. Now we are ready to copy-paste our template. Here is the implementation:
 
-```
+```python
 class Solution:
     def smallestDistancePair(self, nums: List[int], k: int) -> int:
         N = len(nums)
@@ -498,7 +498,7 @@ Explanation: The ugly numbers are 2, 3, 4, 6, 8, 9, 10, 12... The 4th is 6.
 
 Nothing special. Still finding the Kth-Smallest. We need to design an `enough` function, given an input `num`, determine whether there are at least n ugly numbers less than or equal to `num`. Since `a` might be a multiple of `b` or `c`, or the other way round, we need the help of greatest common divisor to avoid counting duplicate numbers.
 
-```
+```python
 import math
 class Solution:
     def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
@@ -542,7 +542,7 @@ If the divisor is 4 we can get a sum to 7 (1+1+2+3) and if the divisor is 5 the 
 
 After so many problems introduced above, this one should be a piece of cake. We don't even need to bother to design a `condition` function, because the problem has already told us explicitly what condition we need to satisfy.
 
-```
+```python
 import math
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
