@@ -6,7 +6,7 @@ Minimize k , s.t. condition(k) is True
 
 The following code is the most generalized binary search template:
 
-```
+```python
 def binary_search(array) -> int:
     def condition(value) -> bool:
         pass
@@ -54,7 +54,7 @@ Then 4 is the first bad version.
 
 First, we initialize `left = 1` and `right = n` to include all possible values. Then we notice that we don't even need to design the `condition` function. It's already given by the `isBadVersion` API. Finding the first bad version is equivalent to finding the minimal k satisfying `isBadVersion(k) is True`. Our template can fit in very nicely:
 
-```
+```python
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         left, right = 1, n
@@ -91,7 +91,7 @@ Output: 2
 
 Easy one. First we need to search for minimal k satisfying condition `k^2 > x`, then `k - 1` is the answer to the question. We can easily come up with the solution.
 
-```
+```python
 class Solution:
     def mySqrt(self, x: int) -> int:
         if x == 0 or x == 1:
@@ -130,7 +130,7 @@ Output: 1
 
 Very classic application of binary search. We are looking for the minimal k value satisfying `nums[k] >= target`, and we can just copy-paste our template. Notice that our solution is correct regardless of whether the input array `nums` has duplicates. Also notice that the input  `target` might be larger than all elements in `nums` and therefore needs to placed at the end of the array. That's why we should initialize `right = len(nums)` instead of `right = len(nums) - 1`.
 
-```
+```python
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums)
@@ -184,7 +184,7 @@ Next, we need to initialize our boundary correctly. Obviously `capacity` shoul
 
 Now we've got all we need to apply our binary search template:
 
-```
+```python
 class Solution:
     def shipWithinDays(self, weights: List[int], D: int) -> int:
         def feasible(capacity):
@@ -231,7 +231,7 @@ There are four ways to split nums into two subarrays. The best way is to split i
 
 If you take a close look, you would probably see how similar this problem is with LC 1011 above. Similarly, we can design a `feasible` function: given an input `threshold`, then decide if we can split the array into several subarrays such that every subarray-sum is less than or equal to `threshold`. In this way, we discover the monotonicity of the problem: if `feasible(m)` is `True`, then all inputs larger than `m` can satisfy `feasible` function. You can see that the solution code is exactly the same as LC 1011.
 
-```
+```python
 class Solution:
     def splitArray(self, nums: List[int], maxSubArrays: int) -> int:
         def feasible(maxLargestSum):
@@ -287,7 +287,7 @@ Output: 23
 
 Very similar to LC 1011 and LC 410 mentioned above. Let's design a `feasible` function, given an input `speed`, determine whether Koko can finish all bananas within `H` hours with hourly eating speed `speed`. Obviously, the lower bound of the search space is 1, and upper bound is `max(piles)`, because Koko can only choose one pile of bananas to eat every hour.
 
-```
+```python
 import math
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
@@ -334,7 +334,7 @@ Explanation: We need 3 bouquets each has 2 flowers, that means we need 6 flowers
 
 Now that we've solved three advanced problems above, this one should be pretty easy to do. The monotonicity of this problem is very clear: if we can make `m` bouquets after waiting for `d` days, then we can definitely finish that as well if we wait for more than `d` days.
 
-```
+```python
 class Solution:
     def minDays(self, bloomDay: List[int], requiredBouquets: int, requiredAdjFlowers: int) -> int:
         N = len(bloomDay)
