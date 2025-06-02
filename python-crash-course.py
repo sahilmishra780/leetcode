@@ -134,11 +134,19 @@ nums.reverse()
 
 # Sort
 arr = [5, 4, 7, 3, 8]
+
+# list.sort() does an in-place sort of the list and only works with lists
 arr.sort() # asc
 arr.sort(reverse = True) # desc
 arr = ["bob", "alice", "jane", "doe"]
 arr.sort() # sorted in lexical order
 arr.sort(key=lambda x: len(x))
+
+# there is a function called sorted() that works with any iterable list, string, tuples etc. and returns a new obj that is sorted
+s = "Mishra"
+l1  = sorted(s) # returns a list of chars sorting the string s
+arr = [5, 4, 7, 3, 8]
+newArr = sorted(arr) # arr is still intact
 
 # List comprehension
 arr = [i for in range(5)] # 0, 1, 2, 3, 4
